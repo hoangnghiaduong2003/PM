@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController; 
 use App\Http\Controllers\UserController;   
+use App\Http\Controllers\Logout; 
 use App\Models\Product;
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +18,13 @@ use App\Models\Product;
 |
 */
 
-Route::get('/', function () {
-    $products = Product::latest()->paginate(5);
-    return view('product/index', ['title'=> 'home', 'products'=> $products ]);
-})->name('home');
+// Route::get('/', function () {
+//     $products = Product::latest()->paginate(5);
+//     return view('product/index', ['title'=> 'home', 'products'=> $products ]);
+// })->name('home');
 
 // Product
-Route::get('/product/index',[ProductController::class, 'index'])->name('products.index');
+Route::get('/product/index',[ProductController::class, 'index'])->name('products.index')->middleware('checklogin::class');
 Route::get('/product/create',[ProductController::class, 'create'])->name('products.create');
 Route::get('/product/delete/{id}',[ProductController::class, 'destroy'])->name('products.destroy');
 Route::get('/product/edit/{id}',[ProductController::class, 'edit'])->name('products.edit');
@@ -40,18 +41,18 @@ Route::post('/category/update/{id}',[CategoryController::class, 'update'])->name
 Route::get('/category/show/{id}',[CategoryController::class, 'show'])->name('category.show');
 Route::post('/category/store',[CategoryController::class, 'store'])->name('category.store');
 
+// Route::get('/admin', [ProductController::class, 'index'])->name('products.index')->middleware('checklogin::class');
+
+Route::get('/',[HomeController::class, 'index'])->name('home');
 
 
-Route::get('/home',[HomeController::class, 'index'])->name('home');
-
-
-Route::get('register', [UserController::class, 'register'])->name('register');
-Route::post('register', [UserController::class, 'register_action'])->name('register.action');
-Route::get('login', [UserController::class, 'login'])->name('login');
-Route::post('login', [UserController::class, 'login_action'])->name('login.action');
-Route::get('password', [UserController::class, 'password'])->name('password');
-Route::post('password', [UserController::class, 'password_action'])->name('password.action');
-Route::get('logout', [UserController::class, 'logout'])->name('logout');
+// Route::get('register', [UserController::class, 'register'])->name('register');
+// Route::post('register', [UserController::class, 'register_action'])->name('register.action');
+// Route::get('login', [UserController::class, 'login'])->name('login');
+// Route::post('login', [UserController::class, 'login_action'])->name('login.action');
+// Route::get('password', [UserController::class, 'password'])->name('password');
+// Route::post('password', [UserController::class, 'password_action'])->name('password.action');
+// Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
 
 
@@ -59,3 +60,33 @@ Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
 
 Route::get('/search', [HomeController::class, 'getSearch']);
+
+Route::group(['namespace' => 'App\Http\Controllers'], function()
+{   
+    /**
+     * Home Routes
+     */
+    Route::get('/', 'HomeController@index')->name('home.index');
+
+    Route::group(['middleware' => ['guest']], function() {
+        /**
+         * Register Routes
+         */
+        Route::get('/register', 'RegisterController@show')->name('register.show');
+        Route::post('/register', 'RegisterController@register')->name('register.perform');
+
+        /**
+         * Login Routes
+         */
+        Route::get('/login', 'LoginController@show')->name('login.show');
+        Route::post('/login', 'LoginController@login')->name('login.perform');
+
+    });
+
+    Route::group(['middleware' => ['auth']], function() {
+        /**
+         * Logout Routes
+         */
+        Route::get('/logout', 'Logout@perform')->name('logout.perform');
+    });
+});

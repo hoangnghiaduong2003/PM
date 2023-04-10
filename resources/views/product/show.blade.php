@@ -35,7 +35,7 @@
                         if(event.currentTime>10){
                             event.currentTime=0;
                             event.pause();
-                            alert("Bạn phải trả phí để nghe cả bài")
+                            alert("Il faut payer pour écouter toute la chanson")
                         }
                     }
                 </script>

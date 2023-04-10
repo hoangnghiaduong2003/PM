@@ -31,11 +31,17 @@
         .row .pull-left {
             margin-right: 10px;
         }
-        .desc-lyric{
-            width: 500px;
+        .lyric .desc-lyric {
+        width: 400px;
+        height: 300px;
+        overflow: auto;
+       }
+        .desc-product {
+            width: 50px;
+
         }
-        .img-thumbnail{
-           height: 100px;
+        .action-product {
+            width: 50px;
         }
     </style>
 </head>

@@ -13,7 +13,7 @@
                 <a class="btn btn-success" href="{{ route('category.index') }}"> Management Category</a>
             </div>
             <div class="mb-3">
-                <a class="btn btn-danger" href="{{ route('home') }}">HOME</a>
+                <a class="btn btn-danger" href="{{ url('/') }}">HOME</a>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
             <td>{{ $product->category_id }}</td>
             <td><img src="{{ asset('image/product/'.$product->product_image) }}" alt="" border=3 height=150 width=200 class="images-detail img" ></td>
             <td>
-            <audio controls controlsList="nodownload" style="width: 250px;" ontimeupdate="myAudio(this)">
+            <audio controls controlsList="nodownload" style="width: 150px;" ontimeupdate="myAudio(this)">
                 <source src="{{ asset('audio/product/'.$product->audio) }}" type="audio/mpeg">
                 </audio>
                 <script type="text/javascript">
@@ -57,22 +57,22 @@
                     }
                 </script>
             </td>
+            <td class="desc-product">{{ $product->product_description }}</td>
 
-            <td>{{ $product->product_description }}</td>
-            <td>
-                <form action="{{ route('products.destroy',$product->product_id) }}" method="POST">
-   
+            
+            <td >
+                <form action="{{ route('products.destroy',$product->product_id) }}" method="POST" class="action-product">
+                    
                     <a class="btn btn-info" href="{{ route('products.show',$product->product_id) }}">Show</a>
-    
+                    
                     <a class="btn btn-primary" href="{{ route('products.edit',$product->product_id) }}">Edit</a>
-   
+                    
                     <a class="btn btn-primary" href="{{ route('products.destroy',$product->product_id) }}">Delete</a>
-   
+                    
                 </form>
             </td>
-            <td>
-                 <p class="desc-lyric">{{ $product->lyric }}<p>
-            </td>
+            
+            <td class="lyric"> <p class="desc-lyric">{{ $product->lyric }}</p></td>
         </tr>
         @endforeach
     </table>

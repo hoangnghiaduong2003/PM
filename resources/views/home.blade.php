@@ -10,13 +10,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Alkatra&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/app.css"> 
   <link rel="stylesheet" href="css/reset.css"> 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
 </head>
 <body>
 @extends('app')
 @section('content')
-@auth
-<p><b>{{ Auth::user()->name }}</b></p>
-@endauth
+{{-- @auth
+<p><b>{{ auth()->user()->name }}</b></p>
+@endauth --}}
 @endsection
 
 
@@ -25,11 +26,21 @@
 
   <div class="header">
     <div class="header-top">
-    <img src="image/product/soundcloud-logo.svg" alt="Logo-Soundcloud" class="header-logo">
+    <img src="https://images-platform.99static.com//HKgh2RhyieA8m-1vZzXsPP8rfIg=/121x0:841x720/fit-in/500x500/99designs-contests-attachments/6/6931/attachment_6931515" alt="Logo-Soundcloud" class="header-logo">
     </div>
     <div class="header-action"> 
-      <a href="{{ route('login') }}" class ="btn-signin">Sign In</a>
-      <a href="{{ route('register') }}" class=" btn-create">Create account</a>
+      @guest
+      <a href="{{ url('/login') }}" class ="btn-signin">Sign In</a>
+      <a href="{{ url('/register') }}" class=" btn-create">Create account</a>
+          
+      @endguest
+
+      @auth
+      @if (auth()->user()->email == "admin@localhost.com")
+<a href = "{{ url('/product/index') }}" class="btn-signin">Admin</a>
+                        @endif
+      <a href="{{ route('logout.perform') }}" class=" btn-create">Log out</a>
+      @endauth
   </div>
 </div>
 
@@ -37,7 +48,7 @@
 
 
 <div class="desc">
-  <p>Hear what is trending for free in the SoundCloud community</p>
+  <p>Hear what is trending for free in the JukeFox community</p>
 </div>  
  
 <!-- <div class="list-product-subtitle">
@@ -49,7 +60,7 @@
 <form method="GET"  action="{{asset('search/')}}" class="search-bar">
   
   <input type="search" name="keyword" pattern=".*\S.*" required>
-  <button class="search-btn" type="submit" href="http://127.0.0.1:8000/product/show/15">
+  <button class="search-btn" type="submit" hr>
     <span>Search</span>
   </button>
 </form>
@@ -87,7 +98,7 @@
                         if(event.currentTime>10){
                             event.currentTime=0;
                             event.pause();
-                            alert("Bạn phải trả phí để nghe cả bài")
+                            alert("Il faut payer pour écouter toute la chanson")
                         }
                     }
                 </script>
@@ -126,7 +137,7 @@
         <div class="row">
           <div class="col-sm-12 col-md-6">
             <h6>About</h6>
-            <p class="text-justify"> Soundcloud <i>Welcome to the music site! Here you can search and play music from millions of songs from various genres. With a simple and easy-to-use interface, the music player website will give you a great music enjoyment experience. Try it and feel it today!</p>
+            <p class="text-justify"> JukeFox Welcome to the music site! Here you can search and play music from millions of songs from various genres. With a simple and easy-to-use interface, the music player website will give you a great music enjoyment experience. Try it and feel it today!</p>
           </div>
 
         
@@ -147,7 +158,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">SOUNDCLOUD.
+            <p class="copyright-text">JukeFox.
             </p>
           </div>
 

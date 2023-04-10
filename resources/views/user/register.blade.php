@@ -10,15 +10,19 @@
         <p class="alert alert-danger">{{ $err }}</p>
         @endforeach
         @endif
-        <form action="{{ route('register.action') }}" method="POST">
+        <form action="{{ route('register.perform') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label>Name <span class="text-danger">*</span></label>
-                <input class="form-control" type="text" name="name" value="{{ old('name') }}" />
+                <input type="text" class="form-control"
+                name="username" value="{{ old('username') }}"
+                placeholder="Username" required="required" autofocus>
             </div>
             <div class="mb-3">
-                <label>Username <span class="text-danger">*</span></label>
-                <input class="form-control" type="username" name="username" value="{{ old('username') }}" />
+                <label>Email <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" name="email"
+                value="{{ old('email') }}" placeholder="name@example.com"
+                required="required" autofocus>
             </div>
             <div class="mb-3">
                 <label>Password <span class="text-danger">*</span></label>
@@ -26,11 +30,14 @@
             </div>
             <div class="mb-3">
                 <label>Password Confirmation<span class="text-danger">*</span></label>
-                <input class="form-control" type="password" name="password_confirm" />
+                <input type="password" class="form-control"
+                                                        name="password_confirmation"
+                                                        value="{{ old('password_confirmation') }}"
+                                                        placeholder="Confirm Password" required="required">
             </div>
             <div class="mb-3">
-                <button class="btn btn-primary">Register</button>
-                <a class="btn btn-danger" href="{{ route('home') }}">Back</a>
+                <button type="submit" value="save" class="btn btn-primary">Register</button>
+                <a class="btn btn-danger" href="{{ url('/') }}">Back</a>
             </div>
         </form>
     </div>

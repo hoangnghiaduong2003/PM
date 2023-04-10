@@ -11,13 +11,14 @@ a {
 
 .header {
     display: flex;
-    height: 400px;
-    background-image: url("https://wallpapers.com/images/high/soundcloud-music-rappers-art-w6n5jle6icujdsu2.webp");
+    height: 300px;
+    background-color: #171717;
+    background-image: url("");
 }
 
 .header .header-logo {
-    width: 200px;
-    height: 100px;
+    width: 250px;
+    height: 200px;
 }
 
 .header .header-action {

@@ -60,7 +60,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Lyric</strong>
-                <textarea class="form-control" style="height:150px" name="lyric" placeholder="lyric"></textarea>
+                <textarea class="form-control"  name="lyric" placeholder="lyric"></textarea>
             </div>
         </div>
 

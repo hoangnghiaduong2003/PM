@@ -13,7 +13,7 @@
         <p class="alert alert-danger">{{ $err }}</p>
         @endforeach
         @endif
-        <form action="{{ route('login.action') }}" method="POST">
+        <form action="{{ route('login.perform') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label>Username <span class="text-danger">*</span></label>
@@ -24,8 +24,8 @@
                 <input class="form-control" type="password" name="password" />
             </div>
             <div class="mb-3">
-                <button class="btn btn-primary">Login</button>
-                <a class="btn btn-danger" href="{{ route('home') }}">Back</a>
+                <button type="submit" value="save" class="btn btn-primary">Login</button>
+                <a class="btn btn-danger" href="{{ url('/') }}">Back</a>
             </div>
         </form>
     </div>
